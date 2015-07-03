@@ -25,7 +25,7 @@ WriteMakefile(
         'Inline::Filters' => 0.17,  # wbraswell, rurban, & bulk88 added preprocess inc array; wbraswell added CPPFLAGS
         'PadWalker'       => 2.1,
         'Module::Refresh' => 0.17,
-        #        'Module::Compile' => 0,  # not yet utilized
+        #'Module::Compile' => 0,  # not yet utilized
     },
 
 # NEED UPDATE, CORRELATION #05: list of _Inline directories to delete/exclude in Makefile.PL, .gitignore, and MANIFEST.SKIP
@@ -52,4 +52,10 @@ sub pm_to_blib {
         substr( $blib, $start, 0, "\t" . 'attrib -R /S  blib/lib/*' . "\n" );
     }
     return $blib;
+}
+
+sub depend {
+  "lib/RPerl/Grammar.pm: lib/RPerl/Grammar.eyp
+	eyapp -v -m RPerl::Grammar -o lib/RPerl/Grammar.pm lib/RPerl/Grammar.eyp
+"
 }
