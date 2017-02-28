@@ -3,7 +3,6 @@
 use strict;
 use warnings;
 use RPerl;
-use RPerl;
 #use RPerl::AfterSubclass;
 
 # DEV NOTE, CORRELATION #rp016: RPerl's underscore-is-comma (not CPAN's underscore-is-beta) numbering scheme utilized here
@@ -952,7 +951,6 @@ verbose_flags(
     $::subcompile_archive_flag,      $::subcompile_shared_flag,           $::subcompile_static_flag, $::parallel_flag,        $::execute_flag, $::test_flag
 );
 
-use rperloptions;
 $::input_file_names  = accept_and_verify_input_files( $::input_file_names, $::input_file_names_unlabeled, $::modes );
 
 #if ( ( scalar @{$::input_file_names} ) == 0 ) { return 1; }  # allow require of this file
