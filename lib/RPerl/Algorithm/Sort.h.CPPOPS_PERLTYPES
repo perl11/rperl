@@ -28,7 +28,7 @@ public:
     ~RPerl__Algorithm__Sort() {}
 
     // <<< CLASS NAME REPORTER >>>
-    virtual SV* myclassname() { return newSVpv("RPerl::Algorithm::Sort", 0); }
+    virtual SV* myclassname() { return newSVpvs("RPerl::Algorithm::Sort"); }
 
     // <<< USER-DEFINED METHODS >>>
     void inherited__Sort(SV* person);

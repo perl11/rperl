@@ -287,7 +287,7 @@ string string_to_string(string input_string)
 
 SV* string__typetest0() {
 //fprintf(stderr, "in CPPOPS_PERLTYPES string__typetest0()\n");
-	return(newSVpv("Spice CPPOPS_PERLTYPES", 0));
+	return(newSVpvs("Spice CPPOPS_PERLTYPES"));
 }
 
 SV* string__typetest1(SV* lucky_string) {
@@ -314,7 +314,7 @@ string string__typetest1(string lucky_string) {
 
 # else
 
-Purposefully_die_from_a_compile-time_error,_due_to_neither___PERL__TYPES_nor___CPP__TYPES_being_defined.__We_need_to_define_exactly_one!
+#error neither __PERL__TYPES nor __CPP__TYPES defined
 
 # endif
 

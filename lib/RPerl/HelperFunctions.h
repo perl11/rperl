@@ -18,6 +18,13 @@
 #define AV_ELEMENT(av,index) RPerl_AV_ELEMENT(aTHX_ av, index)
 #define SV_REFERENCE_COUNT(sv) (SvREFCNT(sv))
 #define class(sv) HvNAME(SvSTASH(SvRV(sv)))  // NEED ADDRESS: does this actually match the functionality of PERLOPS class() which is a wrapper around blessed()?
+// older perl backcompat:
+#ifndef STR_WITH_LEN
+# define STR_WITH_LEN(s)  ("" s ""), (sizeof(s)-1)
+#endif
+#ifndef newSVpvs
+# define newSVpvs(str) Perl_newSVpvn(aTHX_ STR_WITH_LEN(str))
+#endif
 
 // MS Windows OS, need not() macro in MSVC
 #ifdef _MSC_VER

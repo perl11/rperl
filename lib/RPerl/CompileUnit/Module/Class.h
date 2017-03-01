@@ -30,7 +30,7 @@ public:
     ~RPerl__CompileUnit__Module__Class__CPP() {}
 
     // <<< CLASS NAME REPORTER >>>
-    virtual SV* myclassname() { return newSVpv("RPerl::CompileUnit::Module::Class", 0); }
+    virtual SV* myclassname() { return newSVpvs("RPerl::CompileUnit::Module::Class"); }
 
 //private:
 // [[[ OO PROPERTIES ]]]
