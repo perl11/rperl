@@ -47,7 +47,7 @@ void RPerl__Algorithm__Inefficient::inherited(SV* person) {
 
 SV* RPerl__Algorithm__Inefficient__uninherited__Inefficient(SV* person) {
 //    cout << "in CPPOPS_PERLTYPES Inefficient::uninherited__Inefficient(), received $person = " << SvPV_nolen(person) << ", MESSY" << "\n";
-    return newSVpv("Inefficient::uninherited__Inefficient() RULES! CPPOPS_PERLTYPES", 0);
+    return newSVpvs("Inefficient::uninherited__Inefficient() RULES! CPPOPS_PERLTYPES");
 }
 
 // [[[<<< END PERL TYPES >>>]]]
@@ -101,7 +101,7 @@ string RPerl__Algorithm__Inefficient__uninherited__Inefficient(string person) {
 
 # else
 
-Purposefully_die_from_a_compile-time_error,_due_to_neither___PERL__TYPES_nor___CPP__TYPES_being_defined.__We_need_to_define_exactly_one!
+#error neither __PERL__TYPES nor __CPP__TYPES defined
 
 # endif
 

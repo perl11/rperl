@@ -95,12 +95,12 @@ SV* RPerl__Algorithm__Sort__Bubble__number_bubblesort(SV* number_data) {
 
 SV* RPerl__Algorithm__Sort__Bubble__uninherited__Bubble(SV* person) {
     cout << "in CPPOPS_PERLTYPES Bubble::uninherited__Bubble(), received person = " << SvPV_nolen(person) << ", MITOCHONDRIAL\n";
-    return (newSVpv("Bubble::uninherited__Bubble() RULES! CPPOPS_PERLTYPES", 0));
+    return (newSVpvs("Bubble::uninherited__Bubble() RULES! CPPOPS_PERLTYPES"));
 }
 
 SV* RPerl__Algorithm__Sort__Bubble__uninherited(SV* person) {
     cout << "in CPPOPS_PERLTYPES Bubble::uninherited(), received person = " << SvPV_nolen(person) << ", TETRAHEDRON\n";
-    return (newSVpv("Bubble::uninherited() ROCKS! CPPOPS_PERLTYPES", 0));
+    return (newSVpvs("Bubble::uninherited() ROCKS! CPPOPS_PERLTYPES"));
 }
 
 SV* RPerl__Algorithm__Sort__Bubble__integer_bubblesort__typetest0(SV* lucky_integers) {

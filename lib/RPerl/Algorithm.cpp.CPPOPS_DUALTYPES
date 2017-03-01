@@ -33,7 +33,7 @@ void RPerl__Algorithm::inherited__Algorithm_foo_set(SV* foo_new) {
 
 SV* RPerl__Algorithm__uninherited__Algorithm(SV* person) {
 //    cout << "in CPPOPS_PERLTYPES Algorithm::uninherited__Algorithm(), received $person = " << SvPV_nolen(person) << ", MYSTIC" << "\n";
-    return newSVpv("Algorithm::uninherited__Algorithm() RULES! CPPOPS_PERLTYPES", 0);
+    return newSVpvs("Algorithm::uninherited__Algorithm() RULES! CPPOPS_PERLTYPES");
 }
 
 // [[[<<< END PERL TYPES >>>]]]

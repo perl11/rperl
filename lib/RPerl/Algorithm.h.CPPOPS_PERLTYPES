@@ -15,16 +15,16 @@ using std::cout;  using std::cerr;  using std::endl;
 // [[[<<< BEGIN PERL TYPES >>>]]]
 
 // [[[ CONSTANTS ]]]
-const SV* RPerl__Algorithm__TIME_BEST = (const SV*) newSVpv("<<< UNKNOWN >>>", 0);
-const SV* RPerl__Algorithm__TIME_AVERAGE = (const SV*) newSVpv("<<< UNKNOWN >>>", 0);
-const SV* RPerl__Algorithm__TIME_WORST = (const SV*) newSVpv("<<< UNKNOWN >>>", 0);
-const SV* RPerl__Algorithm__SPACE_WORST = (const SV*) newSVpv("<<< UNKNOWN >>>", 0);
+const SV* RPerl__Algorithm__TIME_BEST = (const SV*) newSVpvs("<<< UNKNOWN >>>");
+const SV* RPerl__Algorithm__TIME_AVERAGE = (const SV*) newSVpvs("<<< UNKNOWN >>>");
+const SV* RPerl__Algorithm__TIME_WORST = (const SV*) newSVpvs("<<< UNKNOWN >>>");
+const SV* RPerl__Algorithm__SPACE_WORST = (const SV*) newSVpvs("<<< UNKNOWN >>>");
 
 // [[[ OO INHERITANCE ]]]
 class RPerl__Algorithm : public RPerl__CompileUnit__Module__Class__CPP {
 public:
     // [[[ OO PROPERTIES ]]]
-    SV* foo = newSVpv("<<< DEFAULT, ALGORITHM >>>", 0);
+    SV* foo = newSVpvs("<<< DEFAULT, ALGORITHM >>>");
 
     // [[[ OO METHODS ]]]
 
@@ -37,7 +37,7 @@ public:
     ~RPerl__Algorithm() {}
 
     // <<< CLASS NAME REPORTER >>>
-    virtual SV* myclassname() { return newSVpv("RPerl::Algorithm", 0); }
+    virtual SV* myclassname() { return newSVpvs("RPerl::Algorithm"); }
 
     // <<< CONSTANTS, SHIMS >>>
     const SV* TIME_BEST() { return RPerl__Algorithm__TIME_BEST; }
