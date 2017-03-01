@@ -15,13 +15,13 @@ using std::cout;  using std::cerr;  using std::endl;
 // [[[<<< BEGIN PERL TYPES >>>]]]
 
 // [[[ CONSTANTS ]]]
-const SV* RPerl__Algorithm__Inefficient__USEFULNESS = (const SV*) newSVpv("<<< UNKNOWN >>>", 0);
+const SV* RPerl__Algorithm__Inefficient__USEFULNESS = (const SV*) newSVpvs("<<< UNKNOWN >>>");
 
 // [[[ OO INHERITANCE ]]]
 class RPerl__Algorithm__Inefficient : public RPerl__Algorithm {
 public:
     // [[[ OO PROPERTIES ]]]
-    SV* bar = newSVpv("<<< DEFAULT, INEFFICIENT >>>", 0);
+    SV* bar = newSVpvs("<<< DEFAULT, INEFFICIENT >>>");
 
     // [[[ OO METHODS ]]]
 
@@ -36,7 +36,7 @@ public:
     ~RPerl__Algorithm__Inefficient() {}
 
     // <<< CLASS NAME REPORTER >>>
-    virtual SV* myclassname() { return newSVpv("RPerl::Algorithm::Inefficient", 0); }
+    virtual SV* myclassname() { return newSVpvs("RPerl::Algorithm::Inefficient"); }
 
     // <<< CONSTANTS, SHIMS >>>
     const SV* USEFULNESS() { return RPerl__Algorithm__Inefficient__USEFULNESS; }
@@ -72,11 +72,11 @@ SV* RPerl__Algorithm__Inefficient__MODE_ID() { return newSViv(1); }  // CPPOPS_P
 
 # elif defined __CPP__TYPES
 
-Purposefully_die_from_a_compile-time_error,_due_to____CPP__TYPES_being_defined.__We_need_to_define_only___PERL__TYPES_in_this_file!
+#error  __CPP__TYPES defined, but we need ___PERL__TYPES
 
 # else
 
-Purposefully_die_from_a_compile-time_error,_due_to_neither___PERL__TYPES_nor___CPP__TYPES_being_defined.__We_need_to_define_only___PERL__TYPES_in_this_file!
+#error  ___PERL__TYPES not defined
 
 # endif
 

@@ -118,8 +118,8 @@ void XS_pack_gmp_integer_retval(SV* output_hv_ref, gmp_integer_retval input_gmp_
     SAVETMPS;
 
     PUSHMARK(SP);
-    XPUSHs(sv_2mortal(newSVpv("gmp_integer", 0)));  // callback from C++ to Perl for gmp_integer->new() object constructor, class name is first and only argument
-//    XPUSHs(sv_2mortal(newSVpv("Math::BigInt", 0)));  // DEBUG: don't require 'use rperlgmp;' in calling Perl code
+    mXPUSHp("gmp_integer", sizeof("gmp_integer")-1);  // callback from C++ to Perl for gmp_integer->new() object constructor, class name is first and only argument
+//    XPUSHs(sv_2mortal(newSVpvs("Math::BigInt")));  // DEBUG: don't require 'use rperlgmp;' in calling Perl code
     PUTBACK;
 
     integer callback_retval_count = call_method("new", G_SCALAR);  // actual callback
