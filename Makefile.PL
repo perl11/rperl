@@ -18,11 +18,12 @@ my $min_cxx_versions = {
     'g++' => 4.7,
     'clang++' => 3.3
 };
+my $cc = $Config{cc};
 my $cxx = 'g++';
 if ($OSNAME eq 'freebsd') {
     $cxx = 'c++';
 }
-if ($Config{cc} =~ /clang/) {
+if ($cc =~ /clang/) {
     $cxx = 'clang++';
 }
 
@@ -88,7 +89,7 @@ WriteMakefile(
     LICENSE          => 'perl_5',
     EXE_FILES        => ['script/rperl'],
     MIN_PERL_VERSION => '5.10.0',  # NEED ANSWER, CORRELATION #rp000: is RPerl truly incompatible with Perl v5.8 and earlier?
-#    MAKE             => 'gmake',   # CORRELATION #rp200, Windows + EU::MM + GNU makef
+    #MAKE             => 'gmake',   # CORRELATION #rp200, Windows + EU::MM + GNU makef
     PREREQ_PM        => {
         # RPERL USER DEPENDENCIES
         'ExtUtils::MakeMaker' => '7.04',     # for compatibility with Inline::C >= v0.75
