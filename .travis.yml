@@ -1,94 +1,76 @@
 language: perl
 # v0.011_000
 perl:
-# NEED ANSWER, CORRELATION #rp000: is RPerl truly incompatible with Perl v5.8 and earlier?
-# Perl v5.8 causes $CPP_LINKED global symbol errors, currently disabled
-#    - "5.8"
-    - "5.10"
-    - "5.12"
-    - "5.14"
-    - "5.16"
-    - "5.18"
-    - "5.20"
+    #- "5.10"
+    #- "5.12"
+    #- "5.14"
+    #- "5.16"
+    #- "5.18"
+    #- "5.20"
     - "5.22"
     - "5.24"
     # version(s) below are built using Travis-CI Helper
-    - "5.25" 
-#    - "dev"  # same as 5.25 above
-    - "blead"
+    #- "5.25" 
+    #- "blead"
 
 # DEV NOTE, CORRELATION #rp011: update g++ to 4.8 for full C++11 support, including:
 # -std=c++11, std::string::pop_back(), etc.
 
 # new Docker container-based Travis-CI stack, currently disabled, does not support update-alternatives
+sudo: false
+addons:
+  apt:
+    packages:
+      - build-essential
+      - libtool
+      - g++
+      - time
+      - libgmp-dev
+      - texinfo
+
 #addons:
 #    apt:
 #       sources:
 #           - ubuntu-toolchain-r-test
-#addons:
-#    apt:
-#       packages:
-#           - g++-4.8
-#           - time
 
+#matrix:
+#    allow_failures:
+#        - perl: "5.25"
+#        - perl: "blead"
 
-# [ BEGIN Travis-CI Helper ]
-matrix:
-    allow_failures:
-        - perl: "5.25"
-        - perl: "blead"
 before_install:
-    - git clone git://github.com/travis-perl/helpers ~/travis-perl-helpers
-    - source ~/travis-perl-helpers/init
-    - build-perl
-    - perl -V
-
-# NEED REMOVE FOLLOWING 2 LINES IF NOT USED
-# NEED REMOVE FOLLOWING 2 LINES IF NOT USED
-# NEED REMOVE FOLLOWING 2 LINES IF NOT USED
-#    - build-dist
-#    - cd $BUILD_DIR             # $BUILD_DIR is set by the build-dist command
-# [ END Travis-CI Helper ]
-
-    # legacy Travis-CI stack, currently enabled, supports sudo & update-alternatives
-    - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-    - sudo apt-get update -qq
+  - mkdir /home/travis/bin || true
+  - ln -s `which true` /home/travis/bin/cpansign
+  - git clone git://github.com/travis-perl/helpers ~/travis-perl-helpers
+  - source ~/travis-perl-helpers/init
+  - build-perl
+  - perl -V
+  # legacy Travis-CI stack, currently enabled, supports sudo & update-alternatives
+  #- sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  #- sudo apt-get update -qq
 
 install:
-    - sudo apt-get install -qq g++-4.8
-    - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
-    - sudo apt-get install libgmp-dev
-    # begin Pluto PolyCC
-    - sudo apt-get install texinfo
-    - wget https://github.com/wbraswell/pluto-mirror/raw/master/backup/pluto-0.11.4.tar.gz
-    - tar -xzvf pluto-0.11.4.tar.gz
-    - cd pluto-0.11.4/
-    - ./configure
-    - make
-    - make test
-    - sudo make install
-    - cd ..
-    # end Pluto PolyCC
-    - sudo apt-get install curl
-    #- sudo apt-get install astyle  # rely on Alien::astyle for more platform-independent testing
-
-# NEED REMOVE FOLLOWING 1 LINE IF NOT USED
-# NEED REMOVE FOLLOWING 1 LINE IF NOT USED
-# NEED REMOVE FOLLOWING 1 LINE IF NOT USED
-    #- cpan-install --deps       # Travis-CI Helper: installs prereqs, including recommends
+  #- apt-get install -qq g++-4.8
+  #- sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
+  #- apt-get install libgmp-dev
+  # begin Pluto PolyCC
+  #- wget https://github.com/wbraswell/pluto-mirror/raw/master/backup/pluto-0.11.4.tar.gz
+  #- tar -xzvf pluto-0.11.4.tar.gz
+  #- cd pluto-0.11.4/
+  #- ./configure && make && make install DESTDIR=~/
+  #- cd ..
+  # end Pluto PolyCC
+  #- apt-get install curl
+  - cpanm --quiet --installdeps --notest .
+  #- cpan-install --deps       # installs prereqs, including recommends
 
 before_script:
     # NEED REMOVE FOLLOWING 1 LINE when bug is fixed   https://github.com/daoswald/Inline-CPP/issues/38
-    - cpanm --verbose --force ExtUtils::CppGuess
-# MODIFY FOLLOWING LINE TO ENABLE TEST_VERBOSE STDOUT DURING `make test`
+    - cpanm --quiet --force ExtUtils::CppGuess
+    # MODIFY FOLLOWING LINE TO ENABLE TEST_VERBOSE STDOUT DURING `make test`
     - export RPERL_VERBOSE=0
-# UNCOMMENT FOLLOWING LINE TO ENABLE NOISY BUILD DURING `make test`; REQUIRES RPERL_VERBOSE=1 ABOVE
-#    - export RPERL_DEBUG=1
-# UNCOMMENT FOLLOWING LINE FOR DEV VERSIONS OF MODULES, which travis can't get from Makefile.PL
-#    - cpanm -n INGY/Inline-C-0.62_03.tar.gz
-# DEV NOTE, CORRELATION #rp011: following line was not necessary until before_install & install sections added
-#    - cpanm --quiet --installdeps --notest .
-    - cpanm --verbose --installdeps .
+    # UNCOMMENT FOLLOWING LINE TO ENABLE NOISY BUILD DURING `make test`; REQUIRES RPERL_VERBOSE=1 ABOVE
+    #- export RPERL_DEBUG=1
 
 # replace default build command "perl Makefile.PL && make test"
 # DEV NOTE: TEST_VERBOSE variable for ExtUtils::MakeMaker 'make' command disables suppression of stdout;
