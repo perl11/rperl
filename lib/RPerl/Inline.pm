@@ -61,5 +61,13 @@ our %ARGS = (
         '#include <unordered_map>', # DEV NOTE: unordered_map may require '-std=c++0x' in CCFLAGS above
     ],
     classes => sub { join('::', split('__', shift)); }
-);
+  );
+
+# macports or homebrew g++ cannot do -march=native
+# https://stackoverflow.com/questions/10327939/error-no-such-instruction-while-assembling-project-on-mac-os-x
+# better use the system clang, or the macports clang
+if ($^O eq 'darwin' and $Config::Config{cc} =~ /^gcc-/) {
+    $ARGS{optimize} = '-O3 -fomit-frame-pointer -g -mno-avx';
+}
+
 1;
