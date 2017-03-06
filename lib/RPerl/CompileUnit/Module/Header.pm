@@ -75,7 +75,7 @@ our string_hashref::method $ast_to_rperl__generate = sub {
     # due to the need to differentiate between v-numbers and otherwise-identical normal numbers
     $rperl_source_group->{PMC} .= $our_keyword . ' $VERSION = ' . $version_number . q{;} . "\n";
 
-    my string $package_name_underscores = $package_name;
+    my string $package_name_underscores = "$package_name";
     $package_name_underscores =~ s/::/__/gxms;
     $rperl_source_group->{_package_name} = $package_name;
     $rperl_source_group->{_package_name_underscores} = $package_name_underscores;
