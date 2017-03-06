@@ -33,7 +33,7 @@ our string_hashref::method $ast_to_rperl__generate = sub {
     my object $critic_optional    = $self->{children}->[0];
     my string $use_rperl_optional = $self->{children}->[1];                    # PERLOPS only
     my string $package_keyword    = $self->{children}->[2];                    # PERLOPS only
-    my object $package_name       = $self->{children}->[3]->{children}->[0];
+    my string $package_name       = $self->{children}->[3]->{children}->[0];
     my string $package_semicolon  = $self->{children}->[4];                    # PERLOPS only
 
     # Header -> 'use strict;' 'use warnings;' USE_RPERL_AFTER? 'our' VERSION_NUMBER_ASSIGN;
@@ -75,7 +75,7 @@ our string_hashref::method $ast_to_rperl__generate = sub {
     # due to the need to differentiate between v-numbers and otherwise-identical normal numbers
     $rperl_source_group->{PMC} .= $our_keyword . ' $VERSION = ' . $version_number . q{;} . "\n";
 
-    my string $package_name_underscores = $package_name;
+    my string $package_name_underscores = "$package_name";
     $package_name_underscores =~ s/::/__/gxms;
     $rperl_source_group->{_package_name} = $package_name;
     $rperl_source_group->{_package_name_underscores} = $package_name_underscores;
@@ -105,7 +105,7 @@ our string_hashref::method $ast_to_cpp__generate_begin__CPPOPS_CPPTYPES = sub {
 #RPerl::diag('in Header->ast_to_cpp__generate_begin__CPPOPS_CPPTYPES(), have $self->{children}->[3]->{children}->[0] = ' . "\n" . Dumper($self->{children}->[3]->{children}->[0]) . "\n");
 
 
-    my object $package_name   = $self->{children}->[3]->{children}->[0];
+    my string $package_name   = $self->{children}->[3]->{children}->[0];
     my string $version_number = $self->{children}->[5]->{children}->[4];
 
     # CREATE SYMBOL TABLE ENTRY
