@@ -194,6 +194,10 @@ sub create_symtab_entries_and_accessors_mutators {
             next;
         }
         
+        # skip compiled cperl builtins
+        if ($module_filename_long eq 'xsutils.c') {
+            next;
+        }
         # skip already-compiled files with PMC counterparts
         if (-e ($module_filename_long . 'c')) {
             next;
@@ -225,12 +229,13 @@ sub create_symtab_entries_and_accessors_mutators {
         {
 #            RPerl::diag( 'in Class.pm INIT block, not skipping due to CORE & RPERL_DEPS namespaces, $module_filename_long = ' . $module_filename_long . "\n" );
 
-            open my $MODULE_FILE, '<', $module_filename_long or croak $OS_ERROR;
+            open my $MODULE_FILE, '<', $module_filename_long
+              or croak "read $module_filename_long: $OS_ERROR";
         MODULE_FILE_LINE_LOOP:
             while ( my $module_file_line = <$MODULE_FILE> ) {
                 chomp $module_file_line;
 
-#				RPerl::diag('in Class.pm INIT block, have $module_file_line =' . "\n" . $module_file_line . "\n");
+                #RPerl::diag('in Class.pm INIT block, have $module_file_line =' . "\n" . $module_file_line . "\n");
 
                 # set data type checking mode
                 if ( $module_file_line =~ /^\s*\#\s*\<\<\<\s*TYPE_CHECKING\s*\:\s*(\w+)\s*\>\>\>/xms ) {
