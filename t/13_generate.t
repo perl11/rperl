@@ -177,6 +177,7 @@ my boolean $perform_diff_check;
 my unknown $eval_return_value;
 my hashref $diff_check_retval;
 #my integer $number_of_tests_run = 0;
+warnings->unimport('types') if $] > 5.025001 and $^V =~ /c$/;
 
 # [[[ PRIMARY RUNLOOP ]]]
 # [[[ PRIMARY RUNLOOP ]]]
@@ -248,7 +249,7 @@ for my $mode_id ( 2 , 0 ) {    # CPPOPS_CPPTYPES, PERLOPS_PERLTYPES; DEV NOTE: r
                 diag('Error output captured:' . "\n" . $EVAL_ERROR);
                 next;
             }
-            my object $rperl_ast_parent = $eval_return_value;
+            my $rperl_ast_parent = $eval_return_value;
 
             $modes->{_input_file_name} = $parent_file;
 
@@ -360,7 +361,7 @@ for my $mode_id ( 2 , 0 ) {    # CPPOPS_CPPTYPES, PERLOPS_PERLTYPES; DEV NOTE: r
 #            $number_of_tests_run++;
             next;
         }
-        my object $rperl_ast = $eval_return_value;
+        my $rperl_ast = $eval_return_value;
 
 #        RPerl::diag( 'in 13_generate.t, have $ops = ' . $ops . "\n" );
 #        RPerl::diag( 'in 13_generate.t, have $types = ' . $types . "\n" );
@@ -384,7 +385,7 @@ for my $mode_id ( 2 , 0 ) {    # CPPOPS_CPPTYPES, PERLOPS_PERLTYPES; DEV NOTE: r
 
         if ( ( defined $eval_return_value ) and $eval_return_value ) {    # Perl eval return code defined & true, success
 #            RPerl::diag( 'in 13_generate.t, have defined and true $eval_return_value' . "\n" );
-            my string_hashref $source_group = $eval_return_value;
+            my $source_group = $eval_return_value;
 
 #            RPerl::diag( 'in 13_generate.t, have $source_group = ' . Dumper($source_group ) . "\n\n" );
 #            RPerl::diag( 'in 13_generate.t, have $source_group->{H} = ' . "\n" . $source_group->{H} . "\n\n" );

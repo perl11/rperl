@@ -13,9 +13,9 @@ our $VERSION = 0.001_000;
 
 my number $foo  = 9_123.456_789;
 my string $bar  = 'howdy';
-my integer $bat = ($foo and 22);
-my integer $baz = (9_123.456_789 and $foo);
-my integer $bax = (33 and 0);
+my integer $bat = int($foo and 22);
+my integer $baz = int(9_123.456_789 and $foo);
+my integer $bax = int(33 and 0);
 
 print 'have $foo = ', $foo, "\n";
 print 'have $bar = ', $bar, "\n";
