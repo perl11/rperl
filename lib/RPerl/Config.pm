@@ -418,11 +418,13 @@ sub set_system_paths {
         die 'ERROR EEXRP00: Failed to find `' . $target_file_name_script . '` executable, dying' . "\n";
     }
     my $target_script_found = $target_scripts_found->[0];
-    if ( scalar @{$target_scripts_found} > 1 ) {
+    # script/rperl, blib/script/rperl
+    if ( scalar @{$target_scripts_found} > 1 
+         and $target_scripts_found->[1] ne 'blib/script/rperl') {
         RPerl::warning( 'WARNING WEXRP00: Found multiple `'
                 . $target_file_name_script
-                . '` executables, using first located, ' . q{`}
-                . $target_script_found . q{`}
+                . '` executables: ' . q{`}
+                . join(", ",@{$target_scripts_found}) . q{`}
                 . "\n" );
     }
 
