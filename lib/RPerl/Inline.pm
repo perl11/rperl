@@ -63,11 +63,19 @@ our %ARGS = (
     classes => sub { join('::', split('__', shift)); }
   );
 
-# macports or homebrew g++ cannot do -march=native
+# macports or homebrew assembler problems: https://sourceware.org/bugzilla/show_bug.cgi?id=18997
+# g++ cannot do -march=native
 # https://stackoverflow.com/questions/10327939/error-no-such-instruction-while-assembling-project-on-mac-os-x
-# better use the system clang, or the macports clang
-if ($^O eq 'darwin' and $Config::Config{cc} =~ /^gcc-/) {
+# use the system clang, or the macports clang.
+if ($^O eq 'darwin') {
+  if ($Config::Config{cc} =~ /^(ccache )?gcc-/) {
     $ARGS{optimize} = '-O3 -fomit-frame-pointer -g -mno-avx';
+  } elsif ($Config::Config{gccversion} =~ /[Cc]lang/) {
+    # with clang: use the integrated assembler with -Wa
+    # Apple LLVM version 8.0.0 (clang-800.0.38)
+    # or 4.2.1 Compatible Clang 3.9.1 (tags/RELEASE_391/final)
+    $ARGS{optimize} = '-O3 -fomit-frame-pointer -g -Wa,-q -march=native';
+  }
 }
 
 1;
