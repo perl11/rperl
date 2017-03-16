@@ -3,7 +3,7 @@ package RPerl::Operation::Statement::Loop::For;
 use strict;
 use warnings;
 use RPerl::AfterSubclass;
-our $VERSION = 0.007_100;
+our $VERSION = 0.007_101;
 
 # [[[ OO INHERITANCE ]]]
 use parent qw(RPerl::Operation::Statement::Loop);
@@ -38,7 +38,7 @@ our string_hashref::method $ast_to_rperl__generate = sub {
         # LoopFor -> 'for' MY TYPE_INTEGER VARIABLE_SYMBOL LPAREN SubExpression OP17_LIST_RANGE SubExpression ')' CodeBlock
         my string $for             = $self->{children}->[0];
         my string $my              = $self->{children}->[1];
-        my string $type_integer    = $self->{children}->[2];
+        my string $type_integer    = $self->integer_type($self->{children}->[2]);
         my string $variable_symbol = $self->{children}->[3];
         my string $left_paren      = $self->{children}->[4];
         my object $subexpression0  = $self->{children}->[5];
@@ -79,7 +79,7 @@ our string_hashref::method $ast_to_rperl__generate = sub {
 # LoopFor -> 'for' LPAREN_MY TYPE_INTEGER VARIABLE_SYMBOL OP19_VARIABLE_ASSIGN OpNamedScolonOrSubExp VARIABLE_SYMBOL OP11_COMPARE_LT_GT OpNamedScolonOrSubExp SubExpressionOrVarMod ')' CodeBlock
         my string $for                       = $self->{children}->[0];
         my string $left_paren_my             = $self->{children}->[1];
-        my string $type_integer              = $self->{children}->[2];
+        my string $type_integer              = integer_type($self->{children}->[2]);
         my string $variable_symbol0          = $self->{children}->[3];
         my string $assign                    = $self->{children}->[4];
         my object $opnamed_or_subexp_scolon0 = $self->{children}->[5];
@@ -226,7 +226,7 @@ our string_hashref::method $ast_to_cpp__generate__CPPOPS_CPPTYPES = sub {
     # LoopFor -> 'for' MY TYPE_INTEGER VARIABLE_SYMBOL LPAREN SubExpression OP17_LIST_RANGE SubExpression ')' CodeBlock
     if ( $self_class eq 'LoopFor_167' ) {
         my string $for             = $self->{children}->[0];
-        my string $type_integer    = $self->{children}->[2];
+        my string $type_integer    = integer_type($self->{children}->[2]);
         my string $variable_symbol = $self->{children}->[3];
         my string $left_paren      = $self->{children}->[4];
         my object $subexpression0  = $self->{children}->[5];
